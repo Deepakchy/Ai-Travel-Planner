@@ -16,7 +16,7 @@ genai.configure(api_key=API_KEY)
 #  LangChain + Gemini Travel Planner
 
 def get_travel_plan(source, destination, travel_mode, travel_preference, language):
-    model = ChatGoogleGenerativeAI(model="models/gemini-pro")  # Recommended stable model
+    model = ChatGoogleGenerativeAI(model="models/gemini-1.5-flash")  # Recommended stable model
     messages = [
         SystemMessage(content="You are an AI travel planner providing optimized travel plans."),
         HumanMessage(content=f"""
