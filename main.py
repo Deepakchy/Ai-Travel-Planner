@@ -12,10 +12,23 @@ API_KEY = st.secrets["GOOGLE_API_KEY"]
 os.environ["GOOGLE_API_KEY"] = API_KEY
 genai.configure(api_key=API_KEY)
 
+#  Input Validation
+
+def is_valid_location(name):
+    """Check if the location contains only valid characters (letters, spaces, basic punctuation)."""
+    return bool(re.match(r"^[A-Za-z\s,.-]{2,}$", name.strip()))
+
 
 #  LangChain + Gemini Travel Planner
 
 def get_travel_plan(source, destination, travel_mode, travel_preference, language):
+    # Validate inputs before making API call
+    if not is_valid_location(source) or not is_valid_location(destination):
+        return (
+            "🙏 Sorry, the location names you entered don't seem valid.\n\n"
+            "Please enter real place names without numbers or special characters."
+        )
+    
     model = ChatGoogleGenerativeAI(model="models/gemini-1.5-flash")  # Recommended stable model
     messages = [
         SystemMessage(content="You are an AI travel planner providing optimized travel plans."),
