@@ -27,4 +27,5 @@ pip install -r requirements.txt
 - langchain-google-genai
 - deep-translator
 
-# Ai-Travel-Planner
+#### Ai-Travel-Planner App link
+https://ai-travel-planner-p2vq75uyqcer9ldztyquwh.streamlit.app/
