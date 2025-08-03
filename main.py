@@ -72,7 +72,11 @@ travel_preference = st.selectbox("Select Travel Preference", ["Any", "Budget", "
 language = st.selectbox("Select Language", ["English", "Hindi", "Tamil", "Telugu", "Maithili"])
 
 if st.button("Plan My Travel"):
-    if source and destination:
+    if not source or not destination:
+        st.warning("⚠️ Please enter both source and destination.")
+    elif not is_valid_location(source) or not is_valid_location(destination):
+        st.error("🙋‍♂️ Please enter valid place names only (no questions or phrases like 'what is...').")
+    else:
         try:
             with st.spinner("Generating your travel plan..."):
                 travel_plan = get_travel_plan(source, destination, travel_mode, travel_preference, language)
@@ -82,5 +86,4 @@ if st.button("Plan My Travel"):
                 st.write(travel_plan)
         except Exception as e:
             st.error(f"❌ Something went wrong: {e}")
-    else:
-        st.warning("⚠️ Please enter both source and destination.")
+
